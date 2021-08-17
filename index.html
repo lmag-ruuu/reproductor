@@ -8,9 +8,10 @@
     <title>Reproductor mp3</title>
   </head>
   <body>
-    <header>Reproductor MP3</header>
+    <header>
+      <h1>Reproductor MP3</h1></header>
     <div>
-      <main>
+      <main class="elPlay">
         <audio id="player" ontimeupdate="updateProgress();">
           <source id="source" />
           Audio no soportado
@@ -21,7 +22,7 @@
           </div>
           <div class="vol">
             Vol:
-            <i class="volumen up">up</i>
+            <i class="volumen up"></i>
             <input type="range" name="vol" id="vol" min="0" max="1" step="0.01" value="0">
             <i class="volumen down"></i>
           </div>
