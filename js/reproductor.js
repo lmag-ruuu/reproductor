@@ -3,6 +3,14 @@ const canciones = [
   "bensound-erf.mp3",
   "bensound-house.mp3"
 ];
+const elementosDOM = {
+  playList: document.getElementById('playList'),
+  playText: document.getElementById("playText"),
+  volume: document.getElementById('vol'),
+  progreso: document.getElementById('progreso'),
+  time: document.getElementById('tiempo'),
+  source: document.getElementById('source')
+}
 
 let indice = new Array(1);
 //Listado de canciones
@@ -19,7 +27,7 @@ function playList () {
   return listado;
 };
 
-document.getElementById('playList').appendChild(playList());
+elementosDOM.playList.appendChild(playList());
 
 let listadoCanciones = document.getElementById('listadoMusica');
 
@@ -35,12 +43,12 @@ listadoCanciones.onclick = e => {
 };
 //El "xD" es porque no es un icono pero no supe como llamarlo xd
 const cambiarIconoxD = () => {
-  const elemento = document.getElementById("playText");
+  const elemento = elementosDOM.playText;
   let contenido = elemento.textContent;
   elemento.textContent = contenido === "Play" ? "Pause" : "Play";
 };
 
-const volumen = document.getElementById('vol');
+const volumen = elementosDOM.volume;
 volumen.oninput = e => {
   const vol = e.target.value;
   player.volume = vol;
@@ -50,7 +58,7 @@ volumen.oninput = e => {
 const updateProgress = () => { 
   if(player.currentTime > 0) {
     let duracion, duracionSegundos, dura, actualSegundos, actual;
-    const barra = document.getElementById('progreso');
+    const barra = elementosDOM.progreso;
     barra.value = (player.currentTime / player.duration) * 100;
 
     duracionSegundos = player.duration.toFixed(0);
@@ -59,10 +67,45 @@ const updateProgress = () => {
     actual = secondsToString(actualSegundos);
 
     duracion = `${actual}/${dura}`;
-    document.getElementById('tiempo').innerText = duracion;
-
+    elementosDOM.time.innerText = duracion;
   }
   if(player.ended){
     siguienteCancion();
   }
+};
+
+const siguienteCancion = () => {
+  let siguiente;
+  let cancionActual = Number(indice[0]);
+  if (canciones.length == (cancionActual+1)){
+    siguiente = 0;
+  }else {
+    siguiente = cancionActual + 1;
+  }
+  removeActive();
+  let item = document.getElementById(siguiente);
+  item.classList.add('active');
+  loadMusic(canciones[siguiente]);
+  player.play();
+  indice[0] = siguiente;
+  reproducirActual(`Reproduciendo: ${canciones[siguiente]}`);
+  cambiarIconoxD();
+};
+
+const cancionAnterior = () => {
+  let cancionActual = Number(indice[0]);
+  let anterior;
+  if (cancionActual === 0){
+    anterior = canciones.length - 1;
+  }else{
+    anterior = cancionActual - 1;
+  }
+  removeActive();
+  let item = document.getElementById(anterior);
+  item.classList.add('active');
+  loadMusic(canciones[anterior]);
+  player.play();
+  indice[0] = anterior;
+  reproducirActual(`Reproduciendo: ${canciones[anterior]}`);
+  cambiarIconoxD();
 };
