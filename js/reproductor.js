@@ -9,7 +9,8 @@ const elementosDOM = {
   volume: document.getElementById('vol'),
   progreso: document.getElementById('progreso'),
   time: document.getElementById('tiempo'),
-  source: document.getElementById('source')
+  source: document.getElementById('source'),
+  textoActual: document.getElementById('actual')
 }
 
 let indice = new Array(1);
@@ -109,3 +110,56 @@ const cancionAnterior = () => {
   reproducirActual(`Reproduciendo: ${canciones[anterior]}`);
   cambiarIconoxD();
 };
+
+//quitar css activos
+const removeActive = () => {
+  const elems = document.querySelectorAll(".active");
+  const newElem = elems.forEach(el => el.classList.remove("active"));
+  return newElem;
+};
+
+const reproducirActual = texto => {
+  elementosDOM.textoActual.innerText = texto;
+}
+
+//Cargar las canciones en el reproductor
+const loadMusic = (ruta) => {
+  let carpeta, index, item;
+  carpeta = `../canciones`;
+  elementosDOM.source.src = `${carpeta}/${ruta}`;
+  index = indice[0] = canciones.indexOf(ruta);//porq no solamente usar indice[0] ? xd
+  removeActive();
+  item = document.getElementById(index);
+  item.classList.add("active");
+  reproducirActual(`Reproduciendo: ${ruta}`);
+  player.load();
+};
+const pausaPlay = () => {
+  if (player.pause){
+    cambiarIconoxD();
+    return player.play();
+  }else{
+    cambiarIconoxD();
+    return player.pause();
+  }
+};
+//Adelantar la cansion
+progreso.addEventListener('click', (e) => {
+  const scrubTime = (e.offsetX / progreso.offsetWidth) * player.duration;
+  player.currentTime = scrubTime;
+});
+//Convertir minutos segundos y horas
+const secondsToString = segundos => {
+  let hour = "";
+  if (segundos > 3600){
+    hour = Math.floor(segundos / 3600);
+    hour = (hour < 10) ? '0' + hour : hour;
+  }
+  let minutos = Math.floor( (segundos / 60) % 60 );
+  minutos = (minutos < 10) ? '0' + minutos : minutos;
+  let segundo = segundos % 60;
+  segundo = (segundo < 10) ? '0' + segundo : segundo;
+  return `${hour}:${minutos}:${segundo}`;
+};
+
+loadMusic(canciones[0]);
