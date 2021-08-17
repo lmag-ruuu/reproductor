@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <h1>Reproductor MP3</h1></header>
+      <h1>Musica</h1></header>
     <div>
       <main class="elPlay">
         <audio id="player" ontimeupdate="updateProgress();">
@@ -26,9 +26,9 @@
             <input type="range" name="vol" id="vol" min="0" max="1" step="0.01" value="0.50">
             <i class="volumen down"></i>
           </div>
-          <i class="anterior"> <- </i>
-          <i class="play" id="playText">Play</i>
-          <i class="siguiente"> -> </i>
+          <i class="anterior" onclick="cancionAnterior();"> <- </i>
+          <i class="play" id="playText" onclick="pausaPlay();">Play</i>
+          <i class="siguiente" onclick="siguienteCancion();"> -> </i>
           <br>
           <span id="actual"></span><br>
           <progress id="progreso" value="0" max="100"></progress>

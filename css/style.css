@@ -43,7 +43,7 @@ header{
 }
 
 svg{
-	color: #6c5ce7
+	color: #0c2461;
 }
 
 progress{
@@ -60,7 +60,7 @@ progress{
 	left:0px;
 	text-align:left;
 	float:left;
-	color: #6c5ce7;
+	color: #0c2461;
 }
 
 .vol{
@@ -75,7 +75,7 @@ progress{
 }
 
 #actual{
-	color: #6c5ce7;
+	color: #0a3d62;
 }
 
 h3{

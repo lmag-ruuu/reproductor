@@ -10,7 +10,8 @@ const elementosDOM = {
   progreso: document.getElementById('progreso'),
   time: document.getElementById('tiempo'),
   source: document.getElementById('source'),
-  textoActual: document.getElementById('actual')
+  textoActual: document.getElementById('actual'),
+  player: document.getElementById('player')
 }
 
 let indice = new Array(1);
@@ -36,23 +37,22 @@ listadoCanciones.onclick = e => {
   const itemClick = e.target;
   removeActive();
   itemClick.classList.add('active');
-  reproducirActual(`Reproduciendo: ${itemClick.innerText}`);
   loadMusic(itemClick.innerText);
-  player.play();
+  elementosDOM.player.play();
   indice[0] = e.target.id;
-  cambiarIconoxD();
+  elementosDOM.playText.textContent = "Play";
 };
 //El "xD" es porque no es un icono pero no supe como llamarlo xd
 const cambiarIconoxD = () => {
   const elemento = elementosDOM.playText;
   let contenido = elemento.textContent;
-  elemento.textContent = contenido === "Play" ? "Pause" : "Play";
+  elemento.textContent = contenido === "Pause" ? "Play" : "Pause";
 };
 
 const volumen = elementosDOM.volume;
 volumen.oninput = e => {
   const vol = e.target.value;
-  player.volume = vol;
+  elementosDOM.player.volume = vol;
 };
 
 //La "barra" de progreso de la cancion òwó
@@ -70,7 +70,7 @@ const updateProgress = () => {
     duracion = `${actual}/${dura}`;
     elementosDOM.time.innerText = duracion;
   }
-  if(player.ended){
+  if(elementosDOM.player.ended){
     siguienteCancion();
   }
 };
@@ -87,7 +87,7 @@ const siguienteCancion = () => {
   let item = document.getElementById(siguiente);
   item.classList.add('active');
   loadMusic(canciones[siguiente]);
-  player.play();
+  elementosDOM.player.play();
   indice[0] = siguiente;
   reproducirActual(`Reproduciendo: ${canciones[siguiente]}`);
   cambiarIconoxD();
@@ -105,7 +105,7 @@ const cancionAnterior = () => {
   let item = document.getElementById(anterior);
   item.classList.add('active');
   loadMusic(canciones[anterior]);
-  player.play();
+  elementosDOM.player.play();
   indice[0] = anterior;
   reproducirActual(`Reproduciendo: ${canciones[anterior]}`);
   cambiarIconoxD();
@@ -125,7 +125,7 @@ const reproducirActual = texto => {
 //Cargar las canciones en el reproductor
 const loadMusic = (ruta) => {
   let carpeta, index, item;
-  carpeta = `../canciones`;
+  carpeta = `../Segundaxd/canciones`;
   elementosDOM.source.src = `${carpeta}/${ruta}`;
   index = indice[0] = canciones.indexOf(ruta);//porq no solamente usar indice[0] ? xd
   removeActive();
@@ -134,19 +134,20 @@ const loadMusic = (ruta) => {
   reproducirActual(`Reproduciendo: ${ruta}`);
   player.load();
 };
+
 const pausaPlay = () => {
-  if (player.pause){
+  if (elementosDOM.player.paused){
     cambiarIconoxD();
-    return player.play();
+    elementosDOM.player.play();
   }else{
     cambiarIconoxD();
-    return player.pause();
+    elementosDOM.player.pause();
   }
 };
 //Adelantar la cansion
 progreso.addEventListener('click', (e) => {
-  const scrubTime = (e.offsetX / progreso.offsetWidth) * player.duration;
-  player.currentTime = scrubTime;
+  const scrubTime = (e.offsetX / progreso.offsetWidth) * elementosDOM.player.duration;
+  elementosDOM.player.currentTime = scrubTime;
 });
 //Convertir minutos segundos y horas
 const secondsToString = segundos => {
@@ -161,5 +162,4 @@ const secondsToString = segundos => {
   segundo = (segundo < 10) ? '0' + segundo : segundo;
   return `${hour}:${minutos}:${segundo}`;
 };
-
 loadMusic(canciones[0]);
