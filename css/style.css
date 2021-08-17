@@ -19,16 +19,19 @@ body{
 	border-radius: 10px;
 	text-align: left;
 	opacity: 0.8;
-	color: #e84393;
-	
+	color: #1e3799;
 }
 
 li {
   padding: 8px;
+  margin-left: 50px;
 }
 
 li.active{
 	color: #1e3799;
+}
+header{
+	color: #0c2461;
 }
 
 #controles{
@@ -84,4 +87,16 @@ footer {
   padding: 10px;
   margin: 10px;
   color: #0c2461;
+}
+
+.play {
+  color: rgb(10, 0, 148);
+}
+
+.anterior {
+  color: rgb(8, 0, 116);
+}
+
+.siguiente {
+  color: rgb(0, 39, 148);
 }
