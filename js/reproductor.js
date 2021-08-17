@@ -17,10 +17,8 @@ const elementosDOM = {
   textoActual: document.getElementById('actual'),
   player: document.getElementById('player')
 }
-
 //Indice, este es para indicar la cancion actual
 let indice = new Array(1);
-
 //Boton de play y de pausa
 const pausaPlay = () => {
   if (elementosDOM.player.paused){
@@ -42,7 +40,6 @@ const siguienteCancion = () => {
   }
   reproducir(siguiente);
 };
-
 const cancionAnterior = () => {
   let cancionActual = Number(indice[0]);
   let anterior;
@@ -53,13 +50,11 @@ const cancionAnterior = () => {
   }
   reproducir(anterior);
 };
-
 //Leer la cancion y dar play enseguida owo
 const reproducir = el => {
   loadMusic(canciones[el]);
   elementosDOM.player.play();
 }
-
 //La "barra" de progreso de la cancion òwó
 const updateProgress = () => { 
   if(player.currentTime > 0) {
@@ -85,13 +80,11 @@ volumen.oninput = e => {
   const vol = e.target.value;
   elementosDOM.player.volume = vol;
 };
-
 //Manipular el tiempo de reproduccion, desde la barra de reproduccion
 progreso.addEventListener('click', (e) => {
   const scrubTime = (e.offsetX / progreso.offsetWidth) * elementosDOM.player.duration;
   elementosDOM.player.currentTime = scrubTime;
 });
-
 //Y por ultimo, Cargar las canciones en el reproductor
 const loadMusic = (ruta) => {
   let carpeta, index, item;
@@ -118,7 +111,6 @@ const secondsToString = segundos => {
   segundo = (segundo < 10) ? '0' + segundo : segundo;
   return `${hour}:${minutos}:${segundo}`;
 };
-
 //Cambiar el "icono" al dar play o pausa
 //El "xD" es porque no es un icono pero no supe como llamarlo xd
 const cambiarIconoxD = () => {
@@ -126,12 +118,10 @@ const cambiarIconoxD = () => {
   let contenido = elemento.textContent;
   elemento.textContent = contenido === "Pause" ? "Play" : "Pause";
 };
-
 //Listado de canciones
 function playList () {
   const listado = document.createElement('ol');
   listado.setAttribute('id', 'listadoMusica');
-
   canciones.forEach ( (el, i) => {
     const item = document.createElement('li');
     item.appendChild(document.createTextNode(el));
@@ -148,7 +138,6 @@ let setPlay = () => {
 }
 //Al darle click a una cancion, esta se reproduzca.
 let listadoCanciones = document.getElementById('listadoMusica');
-
 listadoCanciones.onclick = e => {
   const itemClick = e.target;
   removeActive();
@@ -158,18 +147,14 @@ listadoCanciones.onclick = e => {
   indice[0] = e.target.id;
   setPlay();
 };
-
 //quitar css activos
 const removeActive = () => {
   const elems = document.querySelectorAll(".active");
   const newElem = elems.forEach(el => el.classList.remove("active"));
   return newElem;
 };
-
 const reproducirActual = texto => {
   elementosDOM.textoActual.innerText = texto;
 }
-
-
 //Este vendria siendo algo así como el init() xd
 loadMusic(canciones[0]);
