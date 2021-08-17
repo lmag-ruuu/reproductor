@@ -1,4 +1,4 @@
-# reproductor simple  
+# Reproductor simple  
 Hola, practicando js y git empece a hacer este reproductor  
 Guiandome con un tutorial aunque le hice varios cambios(sobre todo al archivo js)  
 Si quiere añadir mas canciones, debe introducirlas en la carpeta canciones  
