@@ -1,3 +1,17 @@
+{
+  //Aqui voy a poner mis canciones y mis funciones
+  
+}
+
+{
+  //Aqui voy a poner todos los cambios en la vista
+}
+
+{
+  //Aqui voy a poner los event Listeners
+}
+//Y aqui un init Para iniciar el reproductor
+
 const canciones = [
   "bensound-dubstep.mp3",
   "bensound-erf.mp3",
@@ -31,6 +45,10 @@ function playList () {
 
 elementosDOM.playList.appendChild(playList());
 
+let setPlay = () => {
+  elementosDOM.playText.textContent = "Play";
+}
+
 let listadoCanciones = document.getElementById('listadoMusica');
 
 listadoCanciones.onclick = e => {
@@ -40,7 +58,7 @@ listadoCanciones.onclick = e => {
   loadMusic(itemClick.innerText);
   elementosDOM.player.play();
   indice[0] = e.target.id;
-  elementosDOM.playText.textContent = "Play";
+  setPlay();
 };
 //El "xD" es porque no es un icono pero no supe como llamarlo xd
 const cambiarIconoxD = () => {
@@ -90,7 +108,7 @@ const siguienteCancion = () => {
   elementosDOM.player.play();
   indice[0] = siguiente;
   reproducirActual(`Reproduciendo: ${canciones[siguiente]}`);
-  cambiarIconoxD();
+  setPlay();
 };
 
 const cancionAnterior = () => {
@@ -108,7 +126,7 @@ const cancionAnterior = () => {
   elementosDOM.player.play();
   indice[0] = anterior;
   reproducirActual(`Reproduciendo: ${canciones[anterior]}`);
-  cambiarIconoxD();
+  setPlay();
 };
 
 //quitar css activos
@@ -144,11 +162,7 @@ const pausaPlay = () => {
     elementosDOM.player.pause();
   }
 };
-//Adelantar la cansion
-progreso.addEventListener('click', (e) => {
-  const scrubTime = (e.offsetX / progreso.offsetWidth) * elementosDOM.player.duration;
-  elementosDOM.player.currentTime = scrubTime;
-});
+
 //Convertir minutos segundos y horas
 const secondsToString = segundos => {
   let hour = "";
@@ -163,3 +177,11 @@ const secondsToString = segundos => {
   return `${hour}:${minutos}:${segundo}`;
 };
 loadMusic(canciones[0]);
+
+//ControlClicks
+
+//Adelantar la cansion
+progreso.addEventListener('click', (e) => {
+  const scrubTime = (e.offsetX / progreso.offsetWidth) * elementosDOM.player.duration;
+  elementosDOM.player.currentTime = scrubTime;
+});
