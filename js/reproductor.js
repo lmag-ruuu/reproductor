@@ -1,10 +1,11 @@
-//Me da flojera hacer bloques no te voy a mentir
-//El objeto reproductor tiene:///////////////////////////////////////////////////////
+//El objeto reproductor tiene:
 //1. Lista de canciones
 const canciones = [
   "bensound-dubstep.mp3",
   "bensound-erf.mp3",
-  "bensound-house.mp3"
+  "bensound-house.mp3",
+  //aqui puedes poner mas canciones, recuerda deben estar en la carpeta canciones
+  //"cancion.mp3"
 ];
 //Elementos del dom
 const elementosDOM = {
