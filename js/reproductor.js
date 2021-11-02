@@ -89,7 +89,7 @@ progreso.addEventListener('click', (e) => {
 //Y por ultimo, Cargar las canciones en el reproductor
 const loadMusic = (ruta) => {
   let carpeta, index, item;
-  carpeta = `../Segundaxd/canciones`;
+  carpeta = `./canciones`;
   elementosDOM.source.src = `${carpeta}/${ruta}`;
   index = indice[0] = canciones.indexOf(ruta);//porq no solamente usar indice[0] ? xd
   removeActive();
